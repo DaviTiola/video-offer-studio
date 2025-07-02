@@ -1,9 +1,9 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Menu, X, Settings } from "lucide-react";
-import simpleLogo from "@/assets/simple-logo.png";
 
 const ModernNavigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -61,7 +61,6 @@ const ModernNavigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <img src={simpleLogo} alt="Simple AV" className="h-10 w-auto" />
             <span className="text-xl font-bold text-foreground">
               Simple AV
             </span>
