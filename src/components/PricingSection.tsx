@@ -9,125 +9,121 @@ const PricingSection = () => {
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Preços Imbatíveis
+            Unbeatable Prices
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Vídeos profissionais com qualidade de estúdio por uma fração do preço tradicional
+            Professional studio-quality videos for a fraction of traditional pricing
           </p>
         </div>
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {/* Basic */}
+          {/* Single Video */}
           <Card className="hover:shadow-glow transition-all duration-500 border-0 bg-gradient-card">
             <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Básico</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4">Single Video</h3>
               <div className="mb-6">
                 <span className="text-4xl font-bold text-primary">$79</span>
-                <span className="text-muted-foreground">/vídeo</span>
+                <span className="text-muted-foreground">/video</span>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Template personalizado</span>
+                  <span>Professional voiceover</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Locução profissional</span>
+                  <span>24-hour delivery</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Até 30 segundos</span>
+                  <span>2 revisions included</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Entrega em 48h</span>
+                  <span>Custom template</span>
                 </li>
               </ul>
               <Button variant="outline" className="w-full">
-                Escolher Plano
+                Get Started
               </Button>
             </CardContent>
           </Card>
 
-          {/* Professional */}
+          {/* 5 Video Package */}
           <Card className="hover:shadow-glow transition-all duration-500 border-0 bg-gradient-card relative">
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
               <span className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                 <Star className="h-4 w-4" />
-                Mais Popular
+                Most Popular
               </span>
             </div>
             <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Profissional</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4">5 Video Package</h3>
               <div className="mb-6">
-                <span className="text-4xl font-bold text-primary">$149</span>
-                <span className="text-muted-foreground">/vídeo</span>
+                <span className="text-4xl font-bold text-primary">$69</span>
+                <span className="text-muted-foreground">/each</span>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Template personalizado</span>
+                  <span>Professional voiceover</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Locução profissional</span>
+                  <span>24-hour delivery</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Até 60 segundos</span>
+                  <span>3 revisions included</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Entrega em 24h</span>
+                  <span>Custom templates</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>2 revisões incluídas</span>
+                  <span>Save $50 total</span>
                 </li>
               </ul>
               <Button variant="cta" className="w-full">
-                Escolher Plano
+                Get Started
               </Button>
             </CardContent>
           </Card>
 
-          {/* Premium */}
+          {/* 10 Video Package */}
           <Card className="hover:shadow-glow transition-all duration-500 border-0 bg-gradient-card">
             <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Premium</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4">10 Video Package</h3>
               <div className="mb-6">
-                <span className="text-4xl font-bold text-primary">$299</span>
-                <span className="text-muted-foreground">/vídeo</span>
+                <span className="text-4xl font-bold text-primary">$59</span>
+                <span className="text-muted-foreground">/each</span>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Template personalizado</span>
+                  <span>Professional voiceover</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Locução profissional</span>
+                  <span>24-hour delivery</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Até 90 segundos</span>
+                  <span>3 revisions included</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Entrega em 12h</span>
+                  <span>Priority support</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="h-5 w-5 text-primary" />
-                  <span>Revisões ilimitadas</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="h-5 w-5 text-primary" />
-                  <span>Suporte prioritário</span>
+                  <span>Save $200 total</span>
                 </li>
               </ul>
               <Button variant="outline" className="w-full">
-                Escolher Plano
+                Get Started
               </Button>
             </CardContent>
           </Card>
@@ -136,10 +132,10 @@ const PricingSection = () => {
         {/* Call to Action */}
         <div className="text-center mt-16 animate-scale-in">
           <p className="text-lg text-muted-foreground mb-6">
-            Todos os planos incluem locução profissional e qualidade de estúdio
+            All plans include professional voiceover and studio-quality production
           </p>
           <Button variant="hero" size="lg">
-            Comece Seu Projeto Agora
+            Start Your Project Now
           </Button>
         </div>
       </div>
