@@ -61,9 +61,11 @@ const ModernNavigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <span className="text-xl font-bold text-foreground">
-              Simple AV
-            </span>
+            <img 
+              src="/lovable-uploads/13698fcd-2025-4cf3-a624-7b32e3193f72.png" 
+              alt="Simple" 
+              className="h-8 w-auto" 
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -82,7 +84,7 @@ const ModernNavigation = () => {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
             <Button variant="cta" onClick={handleGetStarted}>
-              Get Started
+              Começar
             </Button>
             <Button 
               variant="ghost" 
@@ -116,7 +118,7 @@ const ModernNavigation = () => {
                 </button>
               ))}
               <Button variant="cta" className="mt-4" onClick={handleGetStarted}>
-                Get Started
+                Começar
               </Button>
               <Button 
                 variant="ghost" 
