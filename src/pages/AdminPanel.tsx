@@ -221,14 +221,22 @@ const AdminPanel = () => {
             </p>
           </div>
           
-          <Button 
-            variant="cta" 
-            onClick={() => setIsAdding(true)}
-            disabled={isAdding}
-          >
-            <Plus className="h-5 w-5 mr-2" />
-            Novo Template
-          </Button>
+          <div className="flex gap-4">
+            <Button 
+              variant="outline" 
+              onClick={() => window.location.href = '/'}
+            >
+              ← Voltar ao Site
+            </Button>
+            <Button 
+              variant="cta" 
+              onClick={() => setIsAdding(true)}
+              disabled={isAdding}
+            >
+              <Plus className="h-5 w-5 mr-2" />
+              Novo Template
+            </Button>
+          </div>
         </div>
 
         {/* Formulário de Adição/Edição */}
@@ -297,14 +305,6 @@ const AdminPanel = () => {
                   />
                 </div>
 
-                <div>
-                  <label className="text-sm font-medium mb-2 block">URL da Thumbnail</label>
-                  <Input
-                    value={formData.thumbnail}
-                    onChange={(e) => setFormData(prev => ({...prev, thumbnail: e.target.value}))}
-                    placeholder="https://exemplo.com/imagem.jpg"
-                  />
-                </div>
 
                 <div>
                   <label className="text-sm font-medium mb-2 block">URL do Vídeo (YouTube)</label>
@@ -321,7 +321,7 @@ const AdminPanel = () => {
                 <Textarea
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({...prev, description: e.target.value}))}
-                  placeholder="Descreva o template de vídeo..."
+                  placeholder="Descreva o template de vídeo... (todos incluem locução profissional)"
                   rows={3}
                 />
               </div>

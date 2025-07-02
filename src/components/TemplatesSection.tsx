@@ -122,8 +122,20 @@ const TemplatesSection = () => {
     : templates.filter(template => template.category === selectedCategory);
 
   const handleTemplateSelect = (template: VideoTemplate) => {
-    console.log("Selected template:", template);
-    // In real app, this would navigate to template customization or trigger a modal
+    if (template.videoUrl) {
+      window.open(template.videoUrl, '_blank');
+    }
+  };
+
+  const getYouTubeVideoId = (url: string) => {
+    const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : "";
+  };
+
+  const getYouTubeThumbnail = (url: string) => {
+    const videoId = getYouTubeVideoId(url);
+    return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : "";
   };
 
   return (
@@ -165,7 +177,7 @@ const TemplatesSection = () => {
                 {/* Thumbnail */}
                 <div className="relative overflow-hidden rounded-t-lg">
                   <img 
-                    src={template.thumbnail} 
+                    src={template.videoUrl ? getYouTubeThumbnail(template.videoUrl) : template.thumbnail} 
                     alt={template.title}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                   />
