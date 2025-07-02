@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Menu, X, Settings } from "lucide-react";
+
 const ModernNavigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAdminAccess, setShowAdminAccess] = useState(false);
@@ -66,7 +67,12 @@ const ModernNavigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <img src="/lovable-uploads/13698fcd-2025-4cf3-a624-7b32e3193f72.png" alt="Simple" className="h-auto w-28 object-contain bg-origin-padding space-y-3 " />
+            <img 
+              src="/lovable-uploads/13698fcd-2025-4cf3-a624-7b32e3193f72.png" 
+              alt="Simple" 
+              className="h-auto w-32 object-contain" 
+              style={{ marginTop: '2.5px' }}
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -125,4 +131,5 @@ const ModernNavigation = () => {
       </div>
     </nav>;
 };
+
 export default ModernNavigation;
