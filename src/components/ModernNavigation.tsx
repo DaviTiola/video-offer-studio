@@ -66,7 +66,7 @@ const ModernNavigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <img src="/lovable-uploads/13698fcd-2025-4cf3-a624-7b32e3193f72.png" alt="Simple" className="h-auto w-28 object-contain space-y-2.5" />
+            <img src="/lovable-uploads/13698fcd-2025-4cf3-a624-7b32e3193f72.png" alt="Simple" className="h-auto w-28 object-contain space-y-3" />
           </div>
 
           {/* Desktop Navigation */}
