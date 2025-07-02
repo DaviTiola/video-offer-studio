@@ -10,7 +10,8 @@ const Navigation = () => {
     { name: "Templates", href: "#templates" },
     { name: "How It Works", href: "#how-it-works" },
     { name: "Pricing", href: "#pricing" },
-    { name: "Contact", href: "#contact" }
+    { name: "Contact", href: "#contact" },
+    { name: "Admin", href: "/admin" }
   ];
 
   const scrollToSection = (href: string) => {
@@ -19,6 +20,9 @@ const Navigation = () => {
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
+    } else {
+      // Navegar para página
+      window.location.href = href;
     }
     setIsMenuOpen(false);
   };

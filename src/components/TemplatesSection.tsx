@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -18,76 +18,87 @@ interface VideoTemplate {
 
 const TemplatesSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [templates, setTemplates] = useState<VideoTemplate[]>([]);
   
-  // Sample templates data - in real app this would come from backend
-  const templates: VideoTemplate[] = [
-    {
-      id: "1",
-      title: "Flash Sale Promo",
-      category: "sales",
-      description: "High-energy flash sale template with countdown timer and discount highlights",
-      thumbnail: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
-      duration: "30s",
-      rating: 4.8,
-      code: "FLASH001",
-      businessType: ["Retail", "Supermarket", "Electronics"]
-    },
-    {
-      id: "2", 
-      title: "Restaurant Special",
-      category: "food",
-      description: "Appetizing food showcase with elegant transitions and mouth-watering effects",
-      thumbnail: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=600&h=400&fit=crop",
-      duration: "45s",
-      rating: 4.9,
-      code: "FOOD002",
-      businessType: ["Restaurant", "Cafe", "Food Delivery"]
-    },
-    {
-      id: "3",
-      title: "Service Spotlight",
-      category: "services",
-      description: "Professional service presentation with client testimonials and before/after",
-      thumbnail: "https://images.unsplash.com/photo-1466721591366-2d5fba72006d?w=600&h=400&fit=crop",
-      duration: "60s", 
-      rating: 4.7,
-      code: "SERV003",
-      businessType: ["Barber Shop", "Salon", "Clinic"]
-    },
-    {
-      id: "4",
-      title: "Product Launch",
-      category: "product",
-      description: "Dynamic product reveal with 3D effects and feature highlights",
-      thumbnail: "https://images.unsplash.com/photo-1493962853295-0fd70327578a?w=600&h=400&fit=crop",
-      duration: "90s",
-      rating: 4.6,
-      code: "PROD004", 
-      businessType: ["Retail", "Tech", "Fashion"]
-    },
-    {
-      id: "5",
-      title: "Seasonal Offers",
-      category: "seasonal",
-      description: "Holiday-themed template with festive animations and special pricing",
-      thumbnail: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=600&h=400&fit=crop",
-      duration: "40s",
-      rating: 4.5,
-      code: "SEAS005",
-      businessType: ["Retail", "Fashion", "Gifts"]
-    },
-    {
-      id: "6",
-      title: "Grand Opening", 
-      category: "events",
-      description: "Celebratory grand opening template with confetti and special promotions",
-      thumbnail: "https://images.unsplash.com/photo-1498936178812-4b2e558d2937?w=600&h=400&fit=crop",
-      duration: "50s",
-      rating: 4.8,
-      code: "EVENT006",
-      businessType: ["All Business Types"]
+  // Carregar templates do localStorage
+  useEffect(() => {
+    const savedTemplates = localStorage.getItem("videoTemplates");
+    if (savedTemplates) {
+      setTemplates(JSON.parse(savedTemplates));
+    } else {
+      // Templates padrão se não houver salvos
+      const defaultTemplates: VideoTemplate[] = [
+        {
+          id: "1",
+          title: "Flash Sale Promo",
+          category: "sales",
+          description: "High-energy flash sale template with countdown timer and discount highlights",
+          thumbnail: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
+          duration: "30s",
+          rating: 4.8,
+          code: "FLASH001",
+          businessType: ["Retail", "Supermarket", "Electronics"]
+        },
+        {
+          id: "2", 
+          title: "Restaurant Special",
+          category: "food",
+          description: "Appetizing food showcase with elegant transitions and mouth-watering effects",
+          thumbnail: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=600&h=400&fit=crop",
+          duration: "45s",
+          rating: 4.9,
+          code: "FOOD002",
+          businessType: ["Restaurant", "Cafe", "Food Delivery"]
+        },
+        {
+          id: "3",
+          title: "Service Spotlight",
+          category: "services",
+          description: "Professional service presentation with client testimonials and before/after",
+          thumbnail: "https://images.unsplash.com/photo-1466721591366-2d5fba72006d?w=600&h=400&fit=crop",
+          duration: "60s", 
+          rating: 4.7,
+          code: "SERV003",
+          businessType: ["Barber Shop", "Salon", "Clinic"]
+        },
+        {
+          id: "4",
+          title: "Product Launch",
+          category: "product",
+          description: "Dynamic product reveal with 3D effects and feature highlights",
+          thumbnail: "https://images.unsplash.com/photo-1493962853295-0fd70327578a?w=600&h=400&fit=crop",
+          duration: "90s",
+          rating: 4.6,
+          code: "PROD004", 
+          businessType: ["Retail", "Tech", "Fashion"]
+        },
+        {
+          id: "5",
+          title: "Seasonal Offers",
+          category: "seasonal",
+          description: "Holiday-themed template with festive animations and special pricing",
+          thumbnail: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=600&h=400&fit=crop",
+          duration: "40s",
+          rating: 4.5,
+          code: "SEAS005",
+          businessType: ["Retail", "Fashion", "Gifts"]
+        },
+        {
+          id: "6",
+          title: "Grand Opening", 
+          category: "events",
+          description: "Celebratory grand opening template with confetti and special promotions",
+          thumbnail: "https://images.unsplash.com/photo-1498936178812-4b2e558d2937?w=600&h=400&fit=crop",
+          duration: "50s",
+          rating: 4.8,
+          code: "EVENT006",
+          businessType: ["All Business Types"]
+        }
+      ];
+      setTemplates(defaultTemplates);
+      localStorage.setItem("videoTemplates", JSON.stringify(defaultTemplates));
     }
-  ];
+  }, []);
 
   const categories = [
     { id: "all", name: "All Templates" },
