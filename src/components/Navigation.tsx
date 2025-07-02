@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Video, Menu, X, Settings } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,19 +13,32 @@ const Navigation = () => {
   const ADMIN_PASSWORD = "simple2024"; // Em produção, usar variável de ambiente
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "Templates", href: "#templates" },
-    { name: "How It Works", href: "#how-it-works" },
-    { name: "Pricing", href: "#pricing" },
-    { name: "Contact", href: "#contact" }
+    { name: "Home", href: "/" },
+    { name: "How It Works", href: "/#how-it-works" },
+    { name: "Templates", href: "/#templates" },
+    { name: "Pricing", href: "/#pricing" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
+    { name: "FAQ", href: "/faq" }
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.getElementById(href.substring(1));
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleNavigation = (href: string) => {
     setIsMenuOpen(false);
+    
+    if (href.startsWith('/#')) {
+      // Handle anchor links on current page
+      const element = document.getElementById(href.substring(2));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else if (href.startsWith('/')) {
+      // Handle route navigation
+      window.location.href = href;
+    }
+  };
+
+  const handleGetStarted = () => {
+    window.location.href = "mailto:hello@simpleav.com?subject=Video Project Inquiry&body=Hi! I'm interested in creating a professional video. Please send me information about getting started.";
   };
 
   const handleAdminAccess = () => {
@@ -54,7 +68,7 @@ const Navigation = () => {
             {navItems.map((item) => (
               <button
                 key={item.name}
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => handleNavigation(item.href)}
                 className="text-foreground hover:text-primary transition-colors duration-300 font-medium"
               >
                 {item.name}
@@ -64,7 +78,7 @@ const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="cta">
+            <Button variant="cta" onClick={handleGetStarted}>
               Get Started
             </Button>
             <Button 
@@ -92,13 +106,13 @@ const Navigation = () => {
               {navItems.map((item) => (
                 <button
                   key={item.name}
-                  onClick={() => scrollToSection(item.href)}
+                  onClick={() => handleNavigation(item.href)}
                   className="text-left text-foreground hover:text-primary transition-colors duration-300 font-medium py-2"
                 >
                   {item.name}
                 </button>
               ))}
-              <Button variant="cta" className="mt-4">
+              <Button variant="cta" className="mt-4" onClick={handleGetStarted}>
                 Get Started
               </Button>
               <Button 
