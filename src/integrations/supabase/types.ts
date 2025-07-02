@@ -9,7 +9,84 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          email: string | null
+          id: string
+          updated_at: string
+          user_id: string
+          video_credits: number
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+          video_credits?: number
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+          video_credits?: number
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          date_submitted: string
+          id: string
+          logo_url: string | null
+          observations: string | null
+          offers_and_prices: string | null
+          product_images_urls: string[] | null
+          project_name: string
+          revision_requests: string | null
+          status: string
+          template_id: string | null
+          updated_at: string
+          user_id: string
+          video_url: string | null
+        }
+        Insert: {
+          date_submitted?: string
+          id?: string
+          logo_url?: string | null
+          observations?: string | null
+          offers_and_prices?: string | null
+          product_images_urls?: string[] | null
+          project_name: string
+          revision_requests?: string | null
+          status?: string
+          template_id?: string | null
+          updated_at?: string
+          user_id: string
+          video_url?: string | null
+        }
+        Update: {
+          date_submitted?: string
+          id?: string
+          logo_url?: string | null
+          observations?: string | null
+          offers_and_prices?: string | null
+          product_images_urls?: string[] | null
+          project_name?: string
+          revision_requests?: string | null
+          status?: string
+          template_id?: string | null
+          updated_at?: string
+          user_id?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

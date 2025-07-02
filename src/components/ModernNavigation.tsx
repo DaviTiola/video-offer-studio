@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Menu, X, Settings } from "lucide-react";
+import { Menu, X, Settings, User } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ModernNavigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAdminAccess, setShowAdminAccess] = useState(false);
   const [adminPassword, setAdminPassword] = useState("");
   const ADMIN_PASSWORD = "simple2024";
+  const { user, signOut } = useAuth();
   const navItems = [{
     name: "Home",
     href: "/"
@@ -84,9 +86,26 @@ const ModernNavigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="cta" onClick={handleGetStarted}>
-              Get Started
-            </Button>
+            {user ? (
+              <>
+                <Button variant="ghost" onClick={() => window.location.href = '/app/dashboard'}>
+                  <User className="h-4 w-4 mr-2" />
+                  Dashboard
+                </Button>
+                <Button variant="ghost" size="sm" onClick={signOut}>
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" onClick={() => window.location.href = '/auth'}>
+                  Sign In
+                </Button>
+                <Button variant="cta" onClick={handleGetStarted}>
+                  Get Started
+                </Button>
+              </>
+            )}
             <Button variant="ghost" size="sm" onClick={() => setShowAdminAccess(true)}>
               <Settings className="h-4 w-4" />
             </Button>
@@ -104,9 +123,26 @@ const ModernNavigation = () => {
               {navItems.map(item => <button key={item.name} onClick={() => handleNavigation(item.href)} className="text-left text-foreground hover:text-primary transition-colors duration-300 font-medium py-2">
                   {item.name}
                 </button>)}
-              <Button variant="cta" className="mt-4" onClick={handleGetStarted}>
-                Get Started
-              </Button>
+              {user ? (
+                <>
+                  <Button variant="ghost" className="mt-4" onClick={() => window.location.href = '/app/dashboard'}>
+                    <User className="h-4 w-4 mr-2" />
+                    Dashboard
+                  </Button>
+                  <Button variant="ghost" className="mt-2" onClick={signOut}>
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost" className="mt-4" onClick={() => window.location.href = '/auth'}>
+                    Sign In
+                  </Button>
+                  <Button variant="cta" className="mt-2" onClick={handleGetStarted}>
+                    Get Started
+                  </Button>
+                </>
+              )}
               <Button variant="ghost" className="mt-2" onClick={() => setShowAdminAccess(true)}>
                 <Settings className="h-4 w-4 mr-2" />
                 Admin
