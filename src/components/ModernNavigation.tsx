@@ -12,10 +12,10 @@ const ModernNavigation = () => {
   const ADMIN_PASSWORD = "simple2024";
 
   const navItems = [
-    { name: "Início", href: "/" },
-    { name: "Como Funciona", href: "/#how-it-works" },
-    { name: "Preços", href: "/#pricing" },
-    { name: "Contato", href: "/contact" }
+    { name: "Home", href: "/" },
+    { name: "How It Works", href: "/#how-it-works" },
+    { name: "Pricing", href: "/#pricing" },
+    { name: "Contact", href: "/contact" }
   ];
 
   const handleNavigation = (href: string) => {
@@ -51,7 +51,7 @@ const ModernNavigation = () => {
       setShowAdminAccess(false);
       setAdminPassword("");
     } else {
-      alert("Senha incorreta!");
+      alert("Incorrect password!");
     }
   };
 
@@ -64,7 +64,7 @@ const ModernNavigation = () => {
             <img 
               src="/lovable-uploads/13698fcd-2025-4cf3-a624-7b32e3193f72.png" 
               alt="Simple" 
-              className="h-8 w-auto" 
+              className="h-12 w-auto" 
             />
           </div>
 
@@ -84,7 +84,7 @@ const ModernNavigation = () => {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
             <Button variant="cta" onClick={handleGetStarted}>
-              Começar
+              Get Started
             </Button>
             <Button 
               variant="ghost" 
@@ -118,7 +118,7 @@ const ModernNavigation = () => {
                 </button>
               ))}
               <Button variant="cta" className="mt-4" onClick={handleGetStarted}>
-                Começar
+                Get Started
               </Button>
               <Button 
                 variant="ghost" 
@@ -136,18 +136,18 @@ const ModernNavigation = () => {
         <Dialog open={showAdminAccess} onOpenChange={setShowAdminAccess}>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Acesso Administrativo</DialogTitle>
+              <DialogTitle>Administrative Access</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
               <Input
                 type="password"
-                placeholder="Digite a senha..."
+                placeholder="Enter password..."
                 value={adminPassword}
                 onChange={(e) => setAdminPassword(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleAdminAccess()}
               />
               <Button onClick={handleAdminAccess} variant="modern" className="w-full">
-                Acessar
+                Access
               </Button>
             </div>
           </DialogContent>
