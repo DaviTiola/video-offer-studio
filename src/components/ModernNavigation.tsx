@@ -71,7 +71,6 @@ const ModernNavigation = () => {
               src="/lovable-uploads/13698fcd-2025-4cf3-a624-7b32e3193f72.png" 
               alt="Simple" 
               className="h-auto w-32 object-contain" 
-              style={{ marginTop: '2.5px' }}
             />
           </div>
 
