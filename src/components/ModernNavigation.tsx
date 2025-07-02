@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Video, Menu, X, Settings } from "lucide-react";
+import { Menu, X, Settings } from "lucide-react";
+import simpleLogo from "@/assets/simple-logo.png";
 
 const ModernNavigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,13 +12,10 @@ const ModernNavigation = () => {
   const ADMIN_PASSWORD = "simple2024";
 
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "How It Works", href: "/#how-it-works" },
-    { name: "Templates", href: "/#templates" },
-    { name: "Pricing", href: "/#pricing" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-    { name: "FAQ", href: "/faq" }
+    { name: "Início", href: "/" },
+    { name: "Como Funciona", href: "/#how-it-works" },
+    { name: "Preços", href: "/#pricing" },
+    { name: "Contato", href: "/contact" }
   ];
 
   const handleNavigation = (href: string) => {
@@ -62,10 +60,10 @@ const ModernNavigation = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-2">
-            <Video className="h-8 w-8 text-primary animate-glow-pulse" />
+          <div className="flex items-center gap-3">
+            <img src={simpleLogo} alt="Simple AV" className="h-10 w-auto" />
             <span className="text-xl font-bold text-foreground">
-              Video Offer Studio
+              Simple AV
             </span>
           </div>
 
