@@ -24,7 +24,7 @@ const ModernHeroSection = () => {
 
     console.log("Lead captured:", { email, businessName });
     toast({
-      title: "Welcome to Video Offer Studio! 🎬",
+      title: "Welcome to Simple! 🎬",
       description: "Our professional team will contact you within 24 hours.",
     });
     
@@ -49,10 +49,6 @@ const ModernHeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Hero Text */}
           <div className="text-center lg:text-left animate-fade-in">
-            <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
-              <Video className="h-8 w-8 text-primary animate-glow-pulse" />
-              <span className="text-primary font-bold text-xl">Video Offer Studio</span>
-            </div>
             
             <h1 className="text-5xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
               Professional
