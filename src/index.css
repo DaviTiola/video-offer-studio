@@ -8,50 +8,50 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-/* Cyber Tech Theme - Dark & Vibrant */
-    --background: 222 84% 5%;
-    --foreground: 210 40% 98%;
+/* Clean Modern Theme - White & Professional */
+    --background: 0 0% 100%;
+    --foreground: 222 84% 4%;
 
-    --card: 222 84% 5%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 84% 4%;
 
-    --popover: 222 84% 5%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 84% 4%;
 
-    /* Vibrant Cyan Primary */
-    --primary: 200 100% 50%;
-    --primary-foreground: 222 84% 5%;
-    --primary-glow: 200 100% 70%;
+    /* Professional Blue Primary */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 221 83% 63%;
 
-    /* Dark Secondary */
-    --secondary: 217 32% 17%;
-    --secondary-foreground: 210 40% 98%;
+    /* Clean Gray Secondary */
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 84% 4%;
 
-    --muted: 217 32% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    /* Electric Accent */
-    --accent: 280 100% 70%;
-    --accent-foreground: 222 84% 5%;
+    /* Subtle Accent */
+    --accent: 262 83% 58%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217 32% 17%;
-    --input: 217 32% 17%;
-    --ring: 200 100% 50%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
 
-    /* Tech gradients */
-    --gradient-cinematic: linear-gradient(135deg, hsl(200 100% 50%), hsl(280 100% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(222 84% 5%), hsl(200 100% 50%));
-    --gradient-card: linear-gradient(145deg, hsl(217 32% 17%), hsl(222 84% 5%));
-    --gradient-tech: linear-gradient(45deg, hsl(200 100% 50%), hsl(280 100% 70%), hsl(200 100% 50%));
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    /* Clean gradients */
+    --gradient-cinematic: linear-gradient(135deg, hsl(221 83% 53%), hsl(262 83% 58%));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --gradient-tech: linear-gradient(135deg, hsl(221 83% 53%), hsl(262 83% 58%));
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
 
-    /* Cyber shadows */
-    --shadow-glow: 0 0 30px hsl(200 100% 50% / 0.5), 0 0 60px hsl(280 100% 70% / 0.3);
-    --shadow-card: 0 8px 32px hsl(222 84% 5% / 0.8);
-    --shadow-tech: 0 0 20px hsl(200 100% 50% / 0.6);
+    /* Professional shadows */
+    --shadow-glow: 0 10px 40px -12px hsl(221 83% 53% / 0.25);
+    --shadow-card: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.06);
+    --shadow-tech: 0 8px 25px -5px hsl(221 83% 53% / 0.3);
 
     --radius: 0.75rem;
 
@@ -73,34 +73,33 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Same as light theme for consistent dark cyber look */
-    --background: 222 84% 5%;
+    --background: 222 84% 4%;
     --foreground: 210 40% 98%;
-    --card: 222 84% 5%;
+    --card: 222 84% 4%;
     --card-foreground: 210 40% 98%;
-    --popover: 222 84% 5%;
+    --popover: 222 84% 4%;
     --popover-foreground: 210 40% 98%;
-    --primary: 200 100% 50%;
-    --primary-foreground: 222 84% 5%;
+    --primary: 221 83% 63%;
+    --primary-foreground: 222 84% 4%;
     --secondary: 217 32% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217 32% 17%;
     --muted-foreground: 215 20% 65%;
-    --accent: 280 100% 70%;
-    --accent-foreground: 222 84% 5%;
-    --destructive: 0 84.2% 60.2%;
+    --accent: 262 83% 68%;
+    --accent-foreground: 222 84% 4%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
     --border: 217 32% 17%;
     --input: 217 32% 17%;
-    --ring: 200 100% 50%;
+    --ring: 221 83% 63%;
     --sidebar-background: 217 32% 17%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 200 100% 50%;
-    --sidebar-primary-foreground: 222 84% 5%;
-    --sidebar-accent: 222 84% 5%;
+    --sidebar-primary: 221 83% 63%;
+    --sidebar-primary-foreground: 222 84% 4%;
+    --sidebar-accent: 222 84% 4%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217 32% 17%;
-    --sidebar-ring: 200 100% 50%;
+    --sidebar-ring: 221 83% 63%;
   }
 }
 

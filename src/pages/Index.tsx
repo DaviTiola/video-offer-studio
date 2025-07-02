@@ -1,5 +1,5 @@
-import TechNavigation from "@/components/TechNavigation";
-import TechHeroSection from "@/components/TechHeroSection";
+import ModernNavigation from "@/components/ModernNavigation";
+import ModernHeroSection from "@/components/ModernHeroSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import TemplatesSection from "@/components/TemplatesSection";
 import PricingSection from "@/components/PricingSection";
@@ -7,10 +7,10 @@ import PricingSection from "@/components/PricingSection";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <TechNavigation />
+      <ModernNavigation />
       <main>
         <section id="home">
-          <TechHeroSection />
+          <ModernHeroSection />
         </section>
         <section id="how-it-works">
           <HowItWorksSection />
