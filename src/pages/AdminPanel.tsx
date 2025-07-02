@@ -14,6 +14,7 @@ interface VideoTemplate {
   category: string;
   description: string;
   thumbnail: string;
+  videoUrl: string;
   duration: string;
   rating: number;
   code: string;
@@ -32,6 +33,7 @@ const AdminPanel = () => {
     category: "",
     description: "",
     thumbnail: "",
+    videoUrl: "",
     duration: "",
     rating: 5,
     code: "",
@@ -66,6 +68,7 @@ const AdminPanel = () => {
           category: "sales",
           description: "High-energy flash sale template with countdown timer and discount highlights",
           thumbnail: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
+          videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
           duration: "30s",
           rating: 4.8,
           code: "FLASH001",
@@ -77,6 +80,7 @@ const AdminPanel = () => {
           category: "food",
           description: "Appetizing food showcase with elegant transitions and mouth-watering effects",
           thumbnail: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=600&h=400&fit=crop",
+          videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
           duration: "45s",
           rating: 4.9,
           code: "FOOD002",
@@ -104,6 +108,13 @@ const AdminPanel = () => {
     const prefix = category.toUpperCase().substr(0, 4);
     const number = String(templates.length + 1).padStart(3, '0');
     return `${prefix}${number}`;
+  };
+
+  // Extrair ID do vídeo do YouTube
+  const getYouTubeVideoId = (url: string) => {
+    const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : "";
   };
 
   // Adicionar novo template
@@ -150,6 +161,7 @@ const AdminPanel = () => {
       category: "",
       description: "",
       thumbnail: "",
+      videoUrl: "",
       duration: "",
       rating: 5,
       code: "",
@@ -176,6 +188,7 @@ const AdminPanel = () => {
       category: template.category,
       description: template.description,
       thumbnail: template.thumbnail,
+      videoUrl: template.videoUrl,
       duration: template.duration,
       rating: template.rating,
       code: template.code,
@@ -292,6 +305,15 @@ const AdminPanel = () => {
                     placeholder="https://exemplo.com/imagem.jpg"
                   />
                 </div>
+
+                <div>
+                  <label className="text-sm font-medium mb-2 block">URL do Vídeo (YouTube)</label>
+                  <Input
+                    value={formData.videoUrl}
+                    onChange={(e) => setFormData(prev => ({...prev, videoUrl: e.target.value}))}
+                    placeholder="https://www.youtube.com/watch?v=..."
+                  />
+                </div>
               </div>
 
               <div>
@@ -338,12 +360,28 @@ const AdminPanel = () => {
           {templates.map((template) => (
             <Card key={template.id} className="group hover:shadow-glow transition-all duration-300">
               <CardContent className="p-0">
-                {template.thumbnail && (
+                {template.videoUrl ? (
+                  <div className="w-full h-32 bg-muted rounded-t-lg overflow-hidden">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={`https://www.youtube.com/embed/${getYouTubeVideoId(template.videoUrl)}`}
+                      title={template.title}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                ) : template.thumbnail ? (
                   <img 
                     src={template.thumbnail} 
                     alt={template.title}
                     className="w-full h-32 object-cover rounded-t-lg"
                   />
+                ) : (
+                  <div className="w-full h-32 bg-muted rounded-t-lg flex items-center justify-center">
+                    <span className="text-muted-foreground">Sem preview</span>
+                  </div>
                 )}
                 
                 <div className="p-4">

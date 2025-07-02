@@ -10,6 +10,7 @@ interface VideoTemplate {
   category: string;
   description: string;
   thumbnail: string;
+  videoUrl: string;
   duration: string;
   rating: number;
   code: string;
@@ -34,6 +35,7 @@ const TemplatesSection = () => {
           category: "sales",
           description: "High-energy flash sale template with countdown timer and discount highlights",
           thumbnail: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
+          videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
           duration: "30s",
           rating: 4.8,
           code: "FLASH001",
@@ -45,6 +47,7 @@ const TemplatesSection = () => {
           category: "food",
           description: "Appetizing food showcase with elegant transitions and mouth-watering effects",
           thumbnail: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=600&h=400&fit=crop",
+          videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
           duration: "45s",
           rating: 4.9,
           code: "FOOD002",
@@ -56,6 +59,7 @@ const TemplatesSection = () => {
           category: "services",
           description: "Professional service presentation with client testimonials and before/after",
           thumbnail: "https://images.unsplash.com/photo-1466721591366-2d5fba72006d?w=600&h=400&fit=crop",
+          videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
           duration: "60s", 
           rating: 4.7,
           code: "SERV003",
@@ -67,6 +71,7 @@ const TemplatesSection = () => {
           category: "product",
           description: "Dynamic product reveal with 3D effects and feature highlights",
           thumbnail: "https://images.unsplash.com/photo-1493962853295-0fd70327578a?w=600&h=400&fit=crop",
+          videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
           duration: "90s",
           rating: 4.6,
           code: "PROD004", 
@@ -78,6 +83,7 @@ const TemplatesSection = () => {
           category: "seasonal",
           description: "Holiday-themed template with festive animations and special pricing",
           thumbnail: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=600&h=400&fit=crop",
+          videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
           duration: "40s",
           rating: 4.5,
           code: "SEAS005",
@@ -89,6 +95,7 @@ const TemplatesSection = () => {
           category: "events",
           description: "Celebratory grand opening template with confetti and special promotions",
           thumbnail: "https://images.unsplash.com/photo-1498936178812-4b2e558d2937?w=600&h=400&fit=crop",
+          videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
           duration: "50s",
           rating: 4.8,
           code: "EVENT006",

@@ -1,30 +1,40 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Video, Menu, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Video, Menu, X, Settings } from "lucide-react";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const [showAdminAccess, setShowAdminAccess] = useState(false);
+  const [adminPassword, setAdminPassword] = useState("");
+  const ADMIN_PASSWORD = "simple2024"; // Em produção, usar variável de ambiente
 
   const navItems = [
     { name: "Home", href: "#home" },
     { name: "Templates", href: "#templates" },
     { name: "How It Works", href: "#how-it-works" },
     { name: "Pricing", href: "#pricing" },
-    { name: "Contact", href: "#contact" },
-    { name: "Admin", href: "/admin" }
+    { name: "Contact", href: "#contact" }
   ];
 
   const scrollToSection = (href: string) => {
-    if (href.startsWith("#")) {
-      const element = document.getElementById(href.substring(1));
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    } else {
-      // Navegar para página
-      window.location.href = href;
+    const element = document.getElementById(href.substring(1));
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMenuOpen(false);
+  };
+
+  const handleAdminAccess = () => {
+    if (adminPassword === ADMIN_PASSWORD) {
+      window.location.href = "/admin";
+      setShowAdminAccess(false);
+      setAdminPassword("");
+    } else {
+      alert("Senha incorreta!");
+    }
   };
 
   return (
@@ -53,9 +63,16 @@ const Navigation = () => {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
             <Button variant="cta">
               Get Started
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => setShowAdminAccess(true)}
+            >
+              <Settings className="h-4 w-4" />
             </Button>
           </div>
 
@@ -84,9 +101,38 @@ const Navigation = () => {
               <Button variant="cta" className="mt-4">
                 Get Started
               </Button>
+              <Button 
+                variant="ghost" 
+                className="mt-2"
+                onClick={() => setShowAdminAccess(true)}
+              >
+                <Settings className="h-4 w-4 mr-2" />
+                Admin
+              </Button>
             </div>
           </div>
         )}
+
+        {/* Admin Access Dialog */}
+        <Dialog open={showAdminAccess} onOpenChange={setShowAdminAccess}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Acesso Administrativo</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <Input
+                type="password"
+                placeholder="Digite a senha..."
+                value={adminPassword}
+                onChange={(e) => setAdminPassword(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleAdminAccess()}
+              />
+              <Button onClick={handleAdminAccess} className="w-full">
+                Acessar
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </nav>
   );
