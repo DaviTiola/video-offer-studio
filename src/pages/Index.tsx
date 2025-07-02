@@ -1,23 +1,23 @@
-import Navigation from "@/components/Navigation";
+import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import SocialProofSection from "@/components/SocialProofSection";
+import PortfolioSection from "@/components/PortfolioSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
-import TemplatesSection from "@/components/TemplatesSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import FAQSection from "@/components/FAQSection";
 import PricingSection from "@/components/PricingSection";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
+      <Header />
       <main>
-        <section id="home">
-          <HeroSection />
-        </section>
-        <section id="how-it-works">
-          <HowItWorksSection />
-        </section>
-        <section id="templates">
-          <TemplatesSection />
-        </section>
+        <HeroSection />
+        <SocialProofSection />
+        <PortfolioSection />
+        <HowItWorksSection />
+        <TestimonialsSection />
+        <FAQSection />
         <section id="pricing">
           <PricingSection />
         </section>
