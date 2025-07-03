@@ -9,10 +9,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, Upload, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 const BriefingForm = () => {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     clientName: "",
     clientEmail: "",
@@ -31,19 +35,72 @@ const BriefingForm = () => {
     urgentDelivery: false
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Save to localStorage for demo purposes
-    localStorage.setItem('briefingSubmission', JSON.stringify({
-      ...formData,
-      submittedAt: new Date().toISOString()
-    }));
     
-    setIsSubmitted(true);
-    toast({
-      title: "Briefing Submitted Successfully!",
-      description: "Our team will start working on your video within 24 hours.",
-    });
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to submit a project briefing.",
+        variant: "destructive",
+      });
+      window.location.href = '/auth';
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      // Create project in database
+      const { data, error } = await supabase
+        .from('projects')
+        .insert({
+          user_id: user.id,
+          project_name: formData.projectName,
+          template_id: formData.selectedTemplate,
+          offers_and_prices: `${formData.mainOffer}\n\nPrices: ${formData.prices}\n\nCall to Action: ${formData.callToAction}`,
+          observations: `Target Audience: ${formData.targetAudience}\n\nObjectives: ${formData.objectives}\n\nTone: ${formData.tone}\n\nAdditional Info: ${formData.additionalInfo}\n\nDelivery Formats: ${formData.deliveryFormat.join(', ')}\n\nUrgent Delivery: ${formData.urgentDelivery ? 'Yes' : 'No'}`
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setIsSubmitted(true);
+      toast({
+        title: "Project Submitted Successfully!",
+        description: "Our team will start working on your video within 24 hours.",
+      });
+
+      // Reset form
+      setFormData({
+        clientName: "",
+        clientEmail: "",
+        clientPhone: "",
+        companyName: "",
+        projectName: "",
+        selectedTemplate: "",
+        mainOffer: "",
+        prices: "",
+        callToAction: "",
+        targetAudience: "",
+        tone: "",
+        objectives: "",
+        additionalInfo: "",
+        deliveryFormat: [],
+        urgentDelivery: false
+      });
+
+    } catch (error) {
+      console.error('Submission error:', error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your project. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -59,11 +116,9 @@ const BriefingForm = () => {
               Thank you for your submission. Our production team will start working on your video and deliver it within 24 hours.
             </p>
             <div className="space-y-3">
-              <Link to="/">
-                <Button variant="cta" className="w-full">
-                  Back to Home
-                </Button>
-              </Link>
+              <Button variant="cta" className="w-full" onClick={() => window.location.href = '/app/dashboard'}>
+                View Dashboard
+              </Button>
               <Button variant="outline" className="w-full" onClick={() => setIsSubmitted(false)}>
                 Submit Another Briefing
               </Button>
@@ -325,8 +380,8 @@ const BriefingForm = () => {
 
           {/* Submit */}
           <div className="mt-8 text-center">
-            <Button type="submit" variant="cta" size="lg" className="px-12">
-              Submit Briefing
+            <Button type="submit" variant="cta" size="lg" className="px-12" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Submit Briefing"}
             </Button>
             <p className="text-sm text-muted-foreground mt-4">
               Our team will review your briefing and start production within 24 hours
