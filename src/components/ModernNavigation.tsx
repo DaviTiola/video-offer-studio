@@ -9,8 +9,11 @@ const ModernNavigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAdminAccess, setShowAdminAccess] = useState(false);
   const [adminPassword, setAdminPassword] = useState("");
-  const ADMIN_PASSWORD = "simple2024";
+  const ADMIN_EMAIL = "davitiolafernandes@gmail.com";
   const { user, signOut } = useAuth();
+  
+  // Check if current user is admin
+  const isAdmin = user?.email === ADMIN_EMAIL;
   const navItems = [{
     name: "Home",
     href: "/"
@@ -56,12 +59,10 @@ const ModernNavigation = () => {
     }
   };
   const handleAdminAccess = () => {
-    if (adminPassword === ADMIN_PASSWORD) {
+    if (isAdmin) {
       window.location.href = "/admin";
-      setShowAdminAccess(false);
-      setAdminPassword("");
     } else {
-      alert("Incorrect password!");
+      alert("Access denied. Admin privileges required.");
     }
   };
   return <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -106,9 +107,11 @@ const ModernNavigation = () => {
                 </Button>
               </>
             )}
-            <Button variant="ghost" size="sm" onClick={() => setShowAdminAccess(true)}>
-              <Settings className="h-4 w-4" />
-            </Button>
+            {isAdmin && (
+              <Button variant="ghost" size="sm" onClick={handleAdminAccess}>
+                <Settings className="h-4 w-4" />
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -143,27 +146,15 @@ const ModernNavigation = () => {
                   </Button>
                 </>
               )}
-              <Button variant="ghost" className="mt-2" onClick={() => setShowAdminAccess(true)}>
-                <Settings className="h-4 w-4 mr-2" />
-                Admin
-              </Button>
+              {isAdmin && (
+                <Button variant="ghost" className="mt-2" onClick={handleAdminAccess}>
+                  <Settings className="h-4 w-4 mr-2" />
+                  Admin
+                </Button>
+              )}
             </div>
           </div>}
 
-        {/* Admin Access Dialog */}
-        <Dialog open={showAdminAccess} onOpenChange={setShowAdminAccess}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Administrative Access</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4">
-              <Input type="password" placeholder="Enter password..." value={adminPassword} onChange={e => setAdminPassword(e.target.value)} onKeyPress={e => e.key === 'Enter' && handleAdminAccess()} />
-              <Button onClick={handleAdminAccess} variant="modern" className="w-full">
-                Access
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
       </div>
     </nav>;
 };

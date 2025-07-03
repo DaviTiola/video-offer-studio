@@ -9,6 +9,72 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admin_settings: {
+        Row: {
+          created_at: string
+          id: string
+          setting_name: string
+          setting_value: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          setting_name: string
+          setting_value?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          setting_name?: string
+          setting_value?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          addon_details: Json | null
+          amount: number
+          created_at: string
+          credits_granted: number | null
+          currency: string | null
+          id: string
+          order_type: string
+          status: string | null
+          stripe_session_id: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          addon_details?: Json | null
+          amount: number
+          created_at?: string
+          credits_granted?: number | null
+          currency?: string | null
+          id?: string
+          order_type: string
+          status?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          addon_details?: Json | null
+          amount?: number
+          created_at?: string
+          credits_granted?: number | null
+          currency?: string | null
+          id?: string
+          order_type?: string
+          status?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string

@@ -5,8 +5,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, Edit, Plus, Save, X } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Label } from "@/components/ui/label";
+import { Trash2, Edit, Plus, Save, X, Link, Settings } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface VideoTemplate {
   id: string;
@@ -26,6 +29,15 @@ const AdminPanel = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const { toast } = useToast();
+  
+  // Stripe Payment Links State
+  const [stripeLinks, setStripeLinks] = useState({
+    single_video: "",
+    video_5_package: "",
+    video_10_package: ""
+  });
+  const [isLoadingLinks, setIsLoadingLinks] = useState(true);
+  const [isSavingLinks, setIsSavingLinks] = useState(false);
 
   // Formulário para novo template
   const [formData, setFormData] = useState({
@@ -53,6 +65,48 @@ const AdminPanel = () => {
     "Retail", "Supermarket", "Electronics", "Restaurant", "Cafe", "Food Delivery",
     "Barber Shop", "Salon", "Clinic", "Tech", "Fashion", "Gifts", "All Business Types"
   ];
+
+  // Load Stripe payment links from Supabase
+  useEffect(() => {
+    const loadStripeLinks = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('admin_settings')
+          .select('setting_name, setting_value')
+          .in('setting_name', ['stripe_single_video_link', 'stripe_5_video_package_link', 'stripe_10_video_package_link']);
+
+        if (error) throw error;
+
+        const linksObj = data.reduce((acc, setting) => {
+          switch (setting.setting_name) {
+            case 'stripe_single_video_link':
+              acc.single_video = setting.setting_value || '';
+              break;
+            case 'stripe_5_video_package_link':
+              acc.video_5_package = setting.setting_value || '';
+              break;
+            case 'stripe_10_video_package_link':
+              acc.video_10_package = setting.setting_value || '';
+              break;
+          }
+          return acc;
+        }, { single_video: '', video_5_package: '', video_10_package: '' });
+
+        setStripeLinks(linksObj);
+      } catch (error) {
+        console.error('Error loading Stripe links:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load Stripe payment links",
+          variant: "destructive"
+        });
+      } finally {
+        setIsLoadingLinks(false);
+      }
+    };
+
+    loadStripeLinks();
+  }, []);
 
   // Carregar templates do localStorage
   useEffect(() => {
@@ -208,16 +262,50 @@ const AdminPanel = () => {
     }));
   };
 
+  // Save Stripe payment links
+  const saveStripeLinks = async () => {
+    setIsSavingLinks(true);
+    try {
+      const updates = [
+        { setting_name: 'stripe_single_video_link', setting_value: stripeLinks.single_video },
+        { setting_name: 'stripe_5_video_package_link', setting_value: stripeLinks.video_5_package },
+        { setting_name: 'stripe_10_video_package_link', setting_value: stripeLinks.video_10_package }
+      ];
+
+      for (const update of updates) {
+        const { error } = await supabase
+          .from('admin_settings')
+          .upsert(update, { onConflict: 'setting_name' });
+        
+        if (error) throw error;
+      }
+
+      toast({
+        title: "Success! 🎉",
+        description: "Stripe payment links updated successfully"
+      });
+    } catch (error) {
+      console.error('Error saving Stripe links:', error);
+      toast({
+        title: "Error",
+        description: "Failed to save Stripe payment links",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSavingLinks(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background pt-20 pb-12">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold text-foreground mb-2">
-              Painel Administrativo
+              Admin Panel
             </h1>
             <p className="text-muted-foreground">
-              Gerencie os templates de vídeo do seu estúdio
+              Manage video templates and system settings
             </p>
           </div>
           
@@ -226,21 +314,40 @@ const AdminPanel = () => {
               variant="outline" 
               onClick={() => window.location.href = '/'}
             >
-              ← Voltar ao Site
-            </Button>
-            <Button 
-              variant="cta" 
-              onClick={() => setIsAdding(true)}
-              disabled={isAdding}
-            >
-              <Plus className="h-5 w-5 mr-2" />
-              Novo Template
+              ← Back to Site
             </Button>
           </div>
         </div>
 
-        {/* Formulário de Adição/Edição */}
-        {isAdding && (
+        {/* Admin Tabs */}
+        <Tabs defaultValue="templates" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="templates" className="flex items-center gap-2">
+              <Edit className="h-4 w-4" />
+              Video Templates
+            </TabsTrigger>
+            <TabsTrigger value="integrations" className="flex items-center gap-2">
+              <Settings className="h-4 w-4" />
+              Integrations & Checkout Links
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Templates Tab */}
+          <TabsContent value="templates" className="mt-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">Video Templates</h2>
+              <Button 
+                variant="cta" 
+                onClick={() => setIsAdding(true)}
+                disabled={isAdding}
+              >
+                <Plus className="h-5 w-5 mr-2" />
+                New Template
+              </Button>
+            </div>
+
+            {/* Template Form */}
+            {isAdding && (
           <Card className="mb-8 animate-scale-in">
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
@@ -432,20 +539,90 @@ const AdminPanel = () => {
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+              ))}
+            </div>
 
-        {templates.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground text-lg mb-4">
-              Nenhum template encontrado
-            </p>
-            <Button variant="cta" onClick={() => setIsAdding(true)}>
-              <Plus className="h-5 w-5 mr-2" />
-              Adicionar Primeiro Template
-            </Button>
-          </div>
-        )}
+            {templates.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground text-lg mb-4">
+                  No templates found
+                </p>
+                <Button variant="cta" onClick={() => setIsAdding(true)}>
+                  <Plus className="h-5 w-5 mr-2" />
+                  Add First Template
+                </Button>
+              </div>
+            )}
+          </TabsContent>
+
+          {/* Integrations Tab */}
+          <TabsContent value="integrations" className="mt-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Link className="h-5 w-5" />
+                  Stripe Payment Links
+                </CardTitle>
+                <p className="text-muted-foreground">
+                  Configure the Stripe checkout links for each pricing package
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {isLoadingLinks ? (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+                    <p className="mt-2 text-muted-foreground">Loading payment links...</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="single-video-link">Single Video - Stripe Payment Link</Label>
+                        <Input
+                          id="single-video-link"
+                          value={stripeLinks.single_video}
+                          onChange={(e) => setStripeLinks(prev => ({ ...prev, single_video: e.target.value }))}
+                          placeholder="https://buy.stripe.com/..."
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="5-video-link">5 Video Package - Stripe Payment Link</Label>
+                        <Input
+                          id="5-video-link"
+                          value={stripeLinks.video_5_package}
+                          onChange={(e) => setStripeLinks(prev => ({ ...prev, video_5_package: e.target.value }))}
+                          placeholder="https://buy.stripe.com/..."
+                        />
+                      </div>
+
+                      <div>
+                        <Label htmlFor="10-video-link">10 Video Package - Stripe Payment Link</Label>
+                        <Input
+                          id="10-video-link"
+                          value={stripeLinks.video_10_package}
+                          onChange={(e) => setStripeLinks(prev => ({ ...prev, video_10_package: e.target.value }))}
+                          placeholder="https://buy.stripe.com/..."
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex gap-4 pt-4">
+                      <Button 
+                        variant="cta" 
+                        onClick={saveStripeLinks}
+                        disabled={isSavingLinks}
+                      >
+                        <Save className="h-4 w-4 mr-2" />
+                        {isSavingLinks ? "Saving..." : "Save Payment Links"}
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

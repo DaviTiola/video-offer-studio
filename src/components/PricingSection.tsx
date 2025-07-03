@@ -1,8 +1,58 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Check, Star } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const PricingSection = () => {
+  const [stripeLinks, setStripeLinks] = useState({
+    single_video: "",
+    video_5_package: "",
+    video_10_package: ""
+  });
+
+  useEffect(() => {
+    const loadStripeLinks = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('admin_settings')
+          .select('setting_name, setting_value')
+          .in('setting_name', ['stripe_single_video_link', 'stripe_5_video_package_link', 'stripe_10_video_package_link']);
+
+        if (error) throw error;
+
+        const linksObj = data.reduce((acc, setting) => {
+          switch (setting.setting_name) {
+            case 'stripe_single_video_link':
+              acc.single_video = setting.setting_value || '';
+              break;
+            case 'stripe_5_video_package_link':
+              acc.video_5_package = setting.setting_value || '';
+              break;
+            case 'stripe_10_video_package_link':
+              acc.video_10_package = setting.setting_value || '';
+              break;
+          }
+          return acc;
+        }, { single_video: '', video_5_package: '', video_10_package: '' });
+
+        setStripeLinks(linksObj);
+      } catch (error) {
+        console.error('Error loading Stripe links:', error);
+      }
+    };
+
+    loadStripeLinks();
+  }, []);
+
+  const handlePurchase = (link: string) => {
+    if (link) {
+      window.open(link, '_blank');
+    } else {
+      alert('Payment link not configured. Please contact support.');
+    }
+  };
+
   return (
     <section id="pricing" className="py-20 bg-secondary/50">
       <div className="container mx-auto px-6">
@@ -44,7 +94,11 @@ const PricingSection = () => {
                   <span>Custom template</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => handlePurchase(stripeLinks.single_video)}
+              >
                 Get Started
               </Button>
             </CardContent>
@@ -86,7 +140,11 @@ const PricingSection = () => {
                   <span>Save $50 total</span>
                 </li>
               </ul>
-              <Button variant="cta" className="w-full">
+              <Button 
+                variant="cta" 
+                className="w-full"
+                onClick={() => handlePurchase(stripeLinks.video_5_package)}
+              >
                 Get Started
               </Button>
             </CardContent>
@@ -122,7 +180,11 @@ const PricingSection = () => {
                   <span>Save $200 total</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => handlePurchase(stripeLinks.video_10_package)}
+              >
                 Get Started
               </Button>
             </CardContent>

@@ -1,1 +1,20 @@
 project_id = "hyjeykiayvetbreouaio"
+
+[auth]
+enabled = true
+site_url = "https://hyjeykiayvetbreouaio.supabase.co"
+additional_redirect_urls = ["http://localhost:3000", "https://hyjeykiayvetbreouaio.supabase.co"]
+
+[auth.email]
+enable_signup = true
+double_confirm_email = false
+
+[auth.providers]
+[auth.providers.google]
+enabled = true
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.create-addon-checkout]
+verify_jwt = true
